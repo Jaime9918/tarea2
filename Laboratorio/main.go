@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"context"
 	"net"
-	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/grpc"
 	pb "github.com/Kendovvul/Ejemplo/Proto"
 )
@@ -19,30 +17,12 @@ func (s *server) Intercambio (ctx context.Context, msg *pb.Message) (*pb.Message
 	return &pb.Message{Body: "NO",}, nil
 }
 
+func lab1(){
+
+}
+
 func main() {
 	LabName := "Laboratiorio Pripyat" //nombre del laboratorio
-	qName := "Emergencias" //nombre de la cola
-	hostQ := "localhost" //ip del servidor de RabbitMQ 172.17.0.1
-	connQ, err := amqp.Dial("amqp://guest:guest@"+hostQ+":5672") //conexion con RabbitMQ
-	
-	if err != nil {log.Fatal(err)}
-	defer connQ.Close()
-
-	ch, err := connQ.Channel()
-	if err != nil{log.Fatal(err)}
-	defer ch.Close()
-
-	//Mensaje enviado a la cola de RabbitMQ (Llamado de emergencia)
-	err = ch.Publish("", qName, false, false,
-		amqp.Publishing{
-			Headers: nil,
-			ContentType: "text/plain",
-			Body: []byte(LabName),  //Contenido del mensaje
-		})
-
-	if err != nil{
-		log.Fatal(err)
-	}
 
 	fmt.Println(LabName)
 
