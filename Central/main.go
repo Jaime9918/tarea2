@@ -10,7 +10,7 @@ import (
 
 func lab1(){
 
-hostS := "localhost" //Host de un Laboratorio
+	hostS := "dist014" //Host de un Laboratorio
 	fmt.Println("Esperando Emergencias")
 
 	for true{
