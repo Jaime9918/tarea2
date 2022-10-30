@@ -14,7 +14,7 @@ func lab1(){
 	fmt.Println("Esperando Emergencias")
 
 	for true{
-		port := ":50051"  //puerto de la conexion con el laboratorio
+		port := ":50055"  //puerto de la conexion con el laboratorio
 		connS, err := grpc.Dial(hostS + port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
 
 		if err != nil {
