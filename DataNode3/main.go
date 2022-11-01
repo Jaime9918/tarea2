@@ -83,7 +83,7 @@ func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message,
 
 func main() {
 	fmt.Println("DataNode3 encendido")
-	listener, err := net.Listen("tcp", ":50059") //conexion sincrona
+	listener, err := net.Listen("tcp", ":50069") //conexion sincrona
 	if err != nil {
 		panic("La conexion no se pudo crear" + err.Error())
 	}

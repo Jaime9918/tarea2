@@ -63,7 +63,7 @@ func info_datanode(id string, nodo string) string {
 	} else {
 		hostS = "dist016"
 		hostS = "localhost"
-		port = ":50059" //puerto de la conexion con el laboratorio
+		port = ":50069" //puerto de la conexion con el laboratorio
 	}
 	for true {
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
@@ -102,7 +102,7 @@ func msje_datanode(msje string, nodo string) string {
 	} else {
 		hostS = "dist016"
 		//hostS = "localhost"
-		port = ":50059" //puerto de la conexion con el laboratorio
+		port = ":50069" //puerto de la conexion con el laboratorio
 	}
 	for true {
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
@@ -257,7 +257,7 @@ func envio_datanode(datanode int, texto string) {
 	} else {
 		hostS = "dist016"
 		hostS = "localhost"
-		port = ":50059" //puerto de la conexion con el laboratorio
+		port = ":50069" //puerto de la conexion con el laboratorio
 	}
 	for true {
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
@@ -298,7 +298,7 @@ func escucha_combine() {
 func escucha_rebeldes() int {
 	serv := grpc.NewServer()
 	pb.RegisterMessageServiceServer(serv, &server{})
-	listener1, err := net.Listen("tcp", ":50062") //conexion sincrona
+	listener1, err := net.Listen("tcp", ":50072") //conexion sincrona
 	if err != nil {
 		panic("La conexion no se pudo crear" + err.Error())
 	}

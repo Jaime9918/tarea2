@@ -24,7 +24,7 @@ func solicitud_cierre() int {
 	respuesta := "4"
 	hostS := "localhost"
 	for true {
-		port := ":50062"                                         //puerto de la conexion con el laboratorio
+		port := ":50072"                                         //puerto de la conexion con el laboratorio
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
 		if err != nil {
 			panic("No se pudo conectar con el servidor" + err.Error())
@@ -58,7 +58,7 @@ func solicitud_informacion(respuesta string) int {
 	fmt.Println("")
 	hostS := "localhost"
 	for true {
-		port := ":50062"                                         //puerto de la conexion con el laboratorio
+		port := ":50072"                                         //puerto de la conexion con el laboratorio
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
 		if err != nil {
 			panic("No se pudo conectar con el servidor" + err.Error())
