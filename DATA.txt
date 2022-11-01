@@ -1,2 +1,14 @@
 MILITAR : 11 : dataNode1 (Grunth)
-MILITAR 11 'numero chistoso'
+MILITAR 11 'ola'
+LOGÍSTICA : 3 : dataNode1 (Grunth)
+LOGÍSTICA 3 'ola'
+LOGÍSTICA : 12 : dataNode1 (Grunth)
+LOGÍSTICA 12 'aa'
+LOGÍSTICA : 13 : dataNode1 (Grunth)
+LOGÍSTICA 13 'ola soy nuevo'
+FINANCIERA : 14 : dataNode1 (Grunth)
+FINANCIERA 14 'ola tambien soy nuevo'
+MILITAR : 15 : dataNode2 (Synth)
+MILITAR 15 'ola soy nuevo x3'
+MILITAR : 19 : dataNode3 (Cremator)
+MILITAR 19 'aaaaaaaa'

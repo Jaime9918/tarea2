@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"net"
@@ -17,25 +18,57 @@ type server struct {
 	pb.UnimplementedMessageServiceServer
 }
 
-func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message, error) {
-	fmt.Println(msg.Body)
-	array := strings.Split(msg.Body, "'")
-	mensaje := array[1]
-	fmt.Println("Solicitud de DataNode1 recibida, mensaje enviado: " + mensaje)
-	file, err := os.OpenFile("DATA.txt", os.O_APPEND|os.O_WRONLY, 0600)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
+func revisar_id(id string) string {
+	readFile, err := os.Open("DATA.txt")
 
-	file.WriteString(msg.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
-	file.Close()
-	fmt.Println("Se ha guardado el mensaje con exito.")
+	fileScanner := bufio.NewScanner(readFile)
 
-	return &pb.Message{Body: "Se ha recibido y guardado el mensaje en DataNode1 con exito."}, nil
+	fileScanner.Split(bufio.ScanLines)
+	contador := 0
+	for fileScanner.Scan() {
+		contador++
+		if fileScanner.Text() != "" && (contador%2 == 0) {
+			array := strings.Split(fileScanner.Text(), "'")
+			new_array := strings.Split(array[0], " ")
+			if new_array[1] == id {
+				resultado := id + " '" + array[1] + "'"
+				return (resultado)
+			}
+		}
+	}
+	readFile.Close()
+	return ("Hubo un error")
+}
+
+func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message, error) {
+	if len(msg.Body) < 15 {
+		fmt.Println("Solicitud de NameNode recibida, mensaje enviado: " + msg.Body)
+		resultado_busqueda := revisar_id(msg.Body)
+		fmt.Println("Se ha enviado la información solicitado al NameNode")
+		return &pb.Message{Body: resultado_busqueda}, nil
+
+	} else {
+		array := strings.Split(msg.Body, "'")
+		mensaje := array[1]
+		fmt.Println("Solicitud de NameNode recibida, mensaje enviado: " + mensaje)
+		file, err := os.OpenFile("DATA.txt", os.O_APPEND|os.O_WRONLY, 0600)
+		if err != nil {
+			panic(err)
+		}
+		defer file.Close()
+
+		file.WriteString(msg.Body)
+		if err != nil {
+			fmt.Println(err)
+		}
+		file.Close()
+		fmt.Println("Se ha guardado el mensaje con exito.")
+
+		return &pb.Message{Body: "Se ha recibido y guardado el mensaje en DataNode1 con exito."}, nil
+	}
 }
 
 func main() {
