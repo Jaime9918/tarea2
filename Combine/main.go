@@ -64,7 +64,7 @@ func envio_namenode(mensaje string) {
 	hostS := "dist014" //Host de un Laboratorio
 	//hostS := "localhost"
 	for true {
-		port := ":50055"                                         //puerto de la conexion con el laboratorio
+		port := ":50085"                                         //puerto de la conexion con el laboratorio
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
 		if err != nil {
 			panic("No se pudo conectar con el servidor" + err.Error())

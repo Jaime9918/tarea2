@@ -286,7 +286,7 @@ func envio_datanode(datanode int, texto string) {
 func escucha_combine() {
 	serv := grpc.NewServer()
 	pb.RegisterMessageServiceServer(serv, &server{})
-	listener, err := net.Listen("tcp", ":50055") //conexion sincrona
+	listener, err := net.Listen("tcp", ":50085") //conexion sincrona
 	if err != nil {
 		panic("La conexion no se pudo crear" + err.Error())
 	}
