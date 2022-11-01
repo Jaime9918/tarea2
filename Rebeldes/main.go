@@ -20,7 +20,35 @@ func getInput(prompt string, r *bufio.Reader) (string, error) {
 }
 
 func solicitud_cierre() int {
-	fmt.Println("chao")
+	fmt.Println("Se ha iniciado el cierre de procesos")
+	respuesta := "4"
+	hostS := "localhost"
+	for true {
+		port := ":50062"                                         //puerto de la conexion con el laboratorio
+		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
+		if err != nil {
+			panic("No se pudo conectar con el servidor" + err.Error())
+		}
+		defer connS.Close()
+		serviceCliente := pb.NewMessageServiceClient(connS)
+		verificador := 1
+		for {
+			//envia el mensaje al laboratorio
+			if verificador == 1 {
+				res, err := serviceCliente.Intercambio(context.Background(),
+					&pb.Message{
+						Body: respuesta,
+					})
+				if err != nil {
+					panic("No se puede crear el mensaje " + err.Error())
+				}
+				fmt.Println(res.Body) //respuesta del laboratorio
+				verificador = 2
+			}
+			break
+		}
+		break
+	}
 
 	return 1
 }
@@ -98,12 +126,8 @@ func main() {
 		} else if respuesta == "2" {
 			fmt.Println("¿Estás seguro que quieres solicitar el cierre de todo?")
 			respuesta, _ := getInput("Respuesta (1: si, 2: no): ", reader)
-			confirmacion := 0
 			if respuesta == "1" {
-				confirmacion = solicitud_cierre()
-			}
-			if confirmacion == 1 {
-				break
+				solicitud_cierre()
 			}
 		} else {
 			fmt.Println("Hay un problema")

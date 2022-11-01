@@ -87,10 +87,64 @@ func info_datanode(id string, nodo string) string {
 	}
 	return "No hay ninguna información de ese tipo"
 }
+func msje_datanode(msje string, nodo string) string {
 
+	hostS := "localhost"
+	port := ":50056" //puerto de la conexion con el laboratorio
+	if nodo == "1" {
+		hostS = "dist013"
+		//hostS = "localhost"
+		port = ":50057" //puerto de la conexion con el laboratorio
+	} else if nodo == "2" {
+		hostS = "dist015"
+		//hostS = "localhost"
+		port = ":50058" //puerto de la conexion con el laboratorio
+	} else {
+		hostS = "dist016"
+		//hostS = "localhost"
+		port = ":50059" //puerto de la conexion con el laboratorio
+	}
+	for true {
+		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
+		if err != nil {
+			panic("No se pudo conectar con el servidor" + err.Error())
+		}
+		defer connS.Close()
+		serviceCliente := pb.NewMessageServiceClient(connS)
+		//envia el mensaje al laboratorio
+		res, err := serviceCliente.Intercambio(context.Background(),
+			&pb.Message{
+				Body: msje,
+			})
+		if err != nil {
+			panic("No se puede crear el mensaje " + err.Error())
+		}
+		fmt.Println(res.Body + nodo)
+		return (res.Body) //respuesta del laboratorio
+		//time.Sleep(10 * time.Second) //espera de 5 segundo
+	}
+	return "No hay ninguna información de ese tipo"
+}
+
+func exit(texto string) {
+	time.Sleep(3 * time.Second)
+	fmt.Println(texto)
+	defer os.Exit(0)
+}
 func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message, error) {
 
-	if msg.Body == "1" || msg.Body == "2" || msg.Body == "3" {
+	if msg.Body == "4" {
+		fmt.Println("Se recibió una solicitud de cierre")
+		go msje_datanode("cierre", "1")
+		//fmt.Println("Se ha cerrado el dataNode1 (Grunth)")
+		go msje_datanode("cierre", "2")
+		//fmt.Println("Se ha cerrado el dataNode2 (Synth)")
+		go msje_datanode("cierre", "3")
+		//fmt.Println("Se ha cerrado el dataNode3 (Cremator)")
+		respuesta := "Se han cerrado los DataNodes y el Namenode satisfactoriamente"
+		go exit("Se ha cerrado correctamente el NameNode")
+		return &pb.Message{Body: respuesta}, nil
+	} else if msg.Body == "1" || msg.Body == "2" || msg.Body == "3" {
 		remitente := "Rebeldes"
 		readFile, err := os.Open("DATA.txt")
 		if err != nil {
@@ -241,7 +295,7 @@ func escucha_combine() {
 	}
 
 }
-func escucha_rebeldes() {
+func escucha_rebeldes() int {
 	serv := grpc.NewServer()
 	pb.RegisterMessageServiceServer(serv, &server{})
 	listener1, err := net.Listen("tcp", ":50062") //conexion sincrona
@@ -252,12 +306,13 @@ func escucha_rebeldes() {
 	if err = serv.Serve(listener1); err != nil {
 		panic("El server no se pudo iniciar" + err.Error())
 	}
+	return 1
 }
 
 func main() {
 	fmt.Println("NameNode Encendido")
-	//file, _ := os.Create("DATA.txt")
-	//defer file.Close()
+	file, _ := os.Create("DATA.txt")
+	defer file.Close()
 	for {
 		go escucha_combine()
 		escucha_rebeldes()

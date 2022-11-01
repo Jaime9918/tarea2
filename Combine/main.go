@@ -61,8 +61,8 @@ func menu() {
 
 func envio_namenode(mensaje string) {
 	//central - Combine
-	//hostS := "dist014" //Host de un Laboratorio
-	hostS := "localhost"
+	hostS := "dist014" //Host de un Laboratorio
+	//hostS := "localhost"
 	for true {
 		port := ":50055"                                         //puerto de la conexion con el laboratorio
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio

@@ -9,6 +9,7 @@ import (
 	"net"
 	"os"
 	"strings"
+	"time"
 
 	pb "github.com/Kendovvul/Ejemplo/Proto"
 	"google.golang.org/grpc"
@@ -43,8 +44,18 @@ func revisar_id(id string) string {
 	return ("Hubo un error")
 }
 
+func exit(texto string) {
+	time.Sleep(3 * time.Second)
+	fmt.Println(texto)
+	defer os.Exit(0)
+}
+
 func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message, error) {
-	if len(msg.Body) < 15 {
+	if msg.Body == "cierre" {
+		fmt.Println("Solicitud de NameNode recibida, mensaje enviado: cierre de procesos")
+		go exit("Se ha cerrado el dataNode1 (Grunth) satisfactoriamente")
+		return &pb.Message{Body: "Se confirma cierre del dataNode"}, nil
+	} else if len(msg.Body) < 15 {
 		fmt.Println("Solicitud de NameNode recibida, mensaje enviado: " + msg.Body)
 		resultado_busqueda := revisar_id(msg.Body)
 		fmt.Println("Se ha enviado la información solicitado al NameNode")
