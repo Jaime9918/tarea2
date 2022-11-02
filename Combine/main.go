@@ -94,7 +94,7 @@ func main() {
 	for true {
 		menu()
 		//go lab1()
-		time.Sleep(5 * time.Second) //espera de 5 segundos
+		time.Sleep(1 * time.Second) //espera de 5 segundos
 	}
 
 }
