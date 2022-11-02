@@ -1,2 +1,10 @@
-LOGÍSTICA : 33 : dataNode2 (Synth)
-LOGÍSTICA 33 'a'
+LOGÍSTICA : 11 : dataNode3 (Cremator)
+LOGÍSTICA 11 'olaaa'
+FINANCIERA : 14 : dataNode3 (Cremator)
+FINANCIERA 14 'olaaa'
+FINANCIERA : 19 : dataNode1 (Grunth)
+FINANCIERA 19 'aaa'
+FINANCIERA : 20 : dataNode3 (Cremator)
+FINANCIERA 20 'aaaa'
+LOGÍSTICA : 111 : dataNode2 (Synth)
+LOGÍSTICA 111 'chaaaaaaao'

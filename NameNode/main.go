@@ -311,8 +311,8 @@ func escucha_rebeldes() int {
 
 func main() {
 	fmt.Println("NameNode Encendido")
-	file, _ := os.Create("DATA.txt")
-	defer file.Close()
+	//file, _ := os.Create("DATA.txt")
+	//defer file.Close()
 	for {
 		go escucha_combine()
 		escucha_rebeldes()
