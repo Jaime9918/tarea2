@@ -28,10 +28,8 @@ func revisar_id(id string) string {
 	fileScanner := bufio.NewScanner(readFile)
 
 	fileScanner.Split(bufio.ScanLines)
-	contador := 0
 	for fileScanner.Scan() {
-		contador++
-		if fileScanner.Text() != "" && (contador%2 == 0) {
+		if fileScanner.Text() != "" {
 			array := strings.Split(fileScanner.Text(), "'")
 			new_array := strings.Split(array[0], " ")
 			if new_array[1] == id {
