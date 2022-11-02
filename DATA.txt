@@ -1,0 +1,2 @@
+LOGÍSTICA : 33 : dataNode2 (Synth)
+LOGÍSTICA 33 'a'

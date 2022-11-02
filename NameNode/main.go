@@ -248,15 +248,15 @@ func envio_datanode(datanode int, texto string) {
 	port := ":50056" //puerto de la conexion con el laboratorio
 	if datanode == 1 {
 		hostS = "dist013"
-		hostS = "localhost"
+		//hostS = "localhost"
 		port = ":50057" //puerto de la conexion con el laboratorio
 	} else if datanode == 2 {
 		hostS = "dist015"
-		hostS = "localhost"
+		//hostS = "localhost"
 		port = ":50058" //puerto de la conexion con el laboratorio
 	} else {
 		hostS = "dist016"
-		hostS = "localhost"
+		//hostS = "localhost"
 		port = ":50069" //puerto de la conexion con el laboratorio
 	}
 	for true {
