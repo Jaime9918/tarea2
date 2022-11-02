@@ -82,6 +82,8 @@ func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message,
 func main() {
 	//Este se ejecuta en el dist015
 	fmt.Println("DataNode2 encendido")
+	file, _ := os.Create("DATA.txt")
+	defer file.Close()
 	listener, err := net.Listen("tcp", ":50058") //conexion sincrona
 	if err != nil {
 		panic("La conexion no se pudo crear" + err.Error())
