@@ -1,4 +1,4 @@
-module github.com/Kendovvul/Ejemplo
+module github.com/Jaime9918/prueba
 
 go 1.18
 

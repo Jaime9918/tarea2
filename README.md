@@ -2,17 +2,18 @@
 
 ## Version local o una sola VM
 
-### Compilar proto
-    protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative Proto/message.proto
+### Como compilar
+    1) make combine (dist013)
+    2) make datanode1 (dist013)
+    3) make namenode (dist014)
+    4) make rebeldes (dist014)
+    5) make datanode2 (dist015)
+    6) make datanode3 (dist016)
 
-### GO
+### Observaciones
 
-Ejecutar cada uno en una consola distinta.
+    -A veces hay problemas de puertos usados por la reconexión de la maquina virtual, sugiero usar "sudo lsof -i:port" y luego borrar el proceso con "kill PID"
+    -Se asume que el archivo DATA.txt se entregará al comienzo de cada ejecución (ya sea vacio o con datos), en caso de que se necesite que el archivo se cree y resetee en cada ejecución sacar comentarios de la linea  312 y 313.
+    -Se asume que los id ingresados son numeros (funciona bien de igual manera con palabras)
+    -Se asume que los ids ingresados son numeros menores a 15 digitos.
 
-Para la central.
-    
-    go run Central/main.go
-
-Para el Laboratorio
-
-    go run Laboratorio/main.go

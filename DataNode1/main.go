@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/Kendovvul/Ejemplo/Proto"
+	pb "github.com/Jaime9918/prueba/Proto"
 	"google.golang.org/grpc"
 )
 

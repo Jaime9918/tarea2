@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/Kendovvul/Ejemplo/Proto"
+	pb "github.com/Jaime9918/prueba/Proto"
 	"google.golang.org/grpc"
 )
 
@@ -62,7 +62,7 @@ func menu() {
 func envio_namenode(mensaje string) {
 	//central - Combine
 	hostS := "dist014" //Host de un Laboratorio
-	//hostS := "localhost"
+	//hostS = "localhost"
 	for true {
 		port := ":50085"                                         //puerto de la conexion con el laboratorio
 		connS, err := grpc.Dial(hostS+port, grpc.WithInsecure()) //crea la conexion sincrona con el laboratorio
