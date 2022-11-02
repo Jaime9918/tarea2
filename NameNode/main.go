@@ -86,7 +86,7 @@ func info_datanode(id string, nodo string) string {
 	return "No hay ninguna información de ese tipo"
 }
 func msje_datanode(msje string, nodo string) string {
-
+	fmt.Println("Se le ha solicitado la información al datanode" + nodo)
 	hostS := "localhost"
 	port := ":50056" //puerto de la conexion con el laboratorio
 	if nodo == "1" {
@@ -117,7 +117,9 @@ func msje_datanode(msje string, nodo string) string {
 		if err != nil {
 			panic("No se puede crear el mensaje " + err.Error())
 		}
+		fmt.Println("información recibida.")
 		fmt.Println(res.Body + nodo)
+
 		return (res.Body) //respuesta del laboratorio
 		//time.Sleep(10 * time.Second) //espera de 5 segundo
 	}
@@ -165,10 +167,8 @@ func (s *server) Intercambio(ctx context.Context, msg *pb.Message) (*pb.Message,
 			tipo = "MILITAR"
 		}
 		respuesta := ""
-		contador := 0
 		for fileScanner.Scan() {
-			contador++
-			if fileScanner.Text() != "" && (contador%2 == 1) {
+			if fileScanner.Text() != "" {
 				array := strings.Split(fileScanner.Text(), " : ")
 				Node_type := array[0]
 				id := array[1]
